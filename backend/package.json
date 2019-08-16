@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sarthak Arora",
+  "license": "ISC",
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.1",
+    "grpc": "^1.22.2",
+    "mali": "^0.17.0",
+    "pino": "^5.13.2"
+  },
+  "devDependencies": {
+    "pino-pretty": "^3.2.1"
+  }
+}
