@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message Empty {}
+
+message GetMessageResponse {
+    string message = 1;
+}
+
+// Grouping all the RPC endpoints where authentication is not required
+service PublicAccessService {
+    rpc GetMessage(Empty) returns (GetMessageResponse) {}
+}
+
+// Grouping all the RPC endpoints where authentication is required
+service SecuredAccessService {
+    rpc GetMessage(Empty) returns (GetMessageResponse) {}
+}

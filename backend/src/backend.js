@@ -1,7 +1,10 @@
 const Mali = require('mali')
+const path = require('path')
 const pino = require('pino')
 
 const PORT = '8080'
+
+const MESSAGE_PROTO_PATH = path.resolve(__dirname, '..', 'protos/message.proto')
 
 global.logger = pino({
     name: 'grpc-backend',
@@ -11,8 +14,9 @@ global.logger = pino({
     prettyPrint: true
 })
 
-exports.initialize = () => {
+exports.initialize = async () => {
     const app = new Mali()
-    app.start(`localhost:${PORT}`)
+    app.addService(MESSAGE_PROTO_PATH, ['PublicAccessService', 'SecuredAccessService'])
+    await app.start(`localhost:${PORT}`)
     logger.info(`GRPC Server listening on Port: ${PORT}`)
 }
