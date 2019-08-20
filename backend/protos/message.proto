@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/api/annotations.proto";
+
 message Empty {}
 
 message GetMessageResponse {
@@ -13,5 +15,7 @@ service PublicAccessService {
 
 // Grouping all the RPC endpoints where authentication is required
 service SecuredAccessService {
-    rpc GetMessage(Empty) returns (GetMessageResponse) {}
+    rpc GetMessage(Empty) returns (GetMessageResponse) {
+	    option (google.api.http).get = "/secured";
+    }
 }

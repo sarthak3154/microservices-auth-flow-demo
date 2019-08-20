@@ -4,7 +4,7 @@ const pino = require('pino')
 
 const { getMessage, getSecuredMessage } = require('./backendGRPC')
 
-const PORT = '8080'
+const PORT = '9090'
 
 const MESSAGE_PROTO_PATH = path.resolve(__dirname, '..', 'protos/message.proto')
 
