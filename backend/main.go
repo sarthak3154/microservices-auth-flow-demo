@@ -25,9 +25,14 @@ func run() error {
 
   mux := runtime.NewServeMux()
   opts := []grpc.DialOption{grpc.WithInsecure()}
-  err := gw.RegisterSecuredAccessServiceHandlerFromEndpoint(ctx, mux, *grpcServerEndpoint, opts)
-  if err != nil {
-    return err
+  err1 := gw.RegisterPublicAccessServiceHandlerFromEndpoint(ctx, mux, *grpcServerEndpoint, opts)
+  if err1 != nil {
+    return err1
+  }
+
+  err2 := gw.RegisterSecuredAccessServiceHandlerFromEndpoint(ctx, mux, *grpcServerEndpoint, opts)
+  if err2 != nil {
+    return err2
   }
 
   log.Println("Starting GRPC Rest Gateway")
