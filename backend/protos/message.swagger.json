@@ -1,0 +1,61 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "protos/message.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/public": {
+      "get": {
+        "operationId": "GetMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageResponse"
+            }
+          }
+        },
+        "tags": [
+          "PublicAccessService"
+        ]
+      }
+    },
+    "/secured": {
+      "get": {
+        "operationId": "GetMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessageResponse"
+            }
+          }
+        },
+        "tags": [
+          "SecuredAccessService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GetMessageResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
