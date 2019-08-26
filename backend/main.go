@@ -36,7 +36,7 @@ func run() error {
   }
 
   log.Println("Starting GRPC Rest Gateway")
-  return http.ListenAndServe(":8080", mux)
+  return http.ListenAndServe(":80", mux)
 }
 
 func main() {

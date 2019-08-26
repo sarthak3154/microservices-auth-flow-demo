@@ -23,6 +23,6 @@ exports.initialize = async () => {
         'PublicAccessService': { getMessage },
         'SecuredAccessService': { getMessage: getSecuredMessage }
     })
-    await app.start(`localhost:${PORT}`)
+    await app.start(`0.0.0.0:${PORT}`)
     logger.info(`GRPC Server listening on Port: ${PORT}`)
 }
