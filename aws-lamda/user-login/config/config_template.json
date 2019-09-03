@@ -1,0 +1,9 @@
+{
+  "aws": {
+    "region": "<AWS_REGION>"
+  },
+  "cognito": {
+    "userPoolId": "<USER_POOL_ID>",
+    "clientId": "<CLIENT_ID>"
+  }
+}
