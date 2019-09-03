@@ -15,4 +15,6 @@ COPY protos/*.go /go/src/${GITHUB_REP_PATH}/backend/protos/
 
 COPY main.go /usr/src/
 
+EXPOSE 80
+
 CMD [ "go", "run", "/usr/src/main.go" ]
