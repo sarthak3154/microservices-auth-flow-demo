@@ -1,0 +1,17 @@
+type: google.api.Service
+config_version: 3
+
+#
+# Name of the Service Configuration.
+#
+name: testgrpc.endpoints.nodejs-238515.cloud.goog
+
+title: Test gRPC API
+apis:
+  - name: PublicAccessService
+  - name: SecuredAccessService
+
+usage:
+  rules:
+    - selector: PublicAccessService.GetMessage
+      allow_unregistered_calls: true
