@@ -5,3 +5,8 @@ exports.getMessage = (ctx) => {
 exports.getSecuredMessage = (ctx) => {
     ctx.res = { message: 'secured' }
 }
+
+exports.createResource = (ctx) => {
+    logger.info(ctx.req)
+    ctx.res = { success: true }
+}

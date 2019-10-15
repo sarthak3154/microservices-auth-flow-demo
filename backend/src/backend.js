@@ -2,7 +2,7 @@ const Mali = require('mali')
 const path = require('path')
 const pino = require('pino')
 
-const { getMessage, getSecuredMessage } = require('./backendGRPC')
+const { getMessage, getSecuredMessage, createResource } = require('./backendGRPC')
 
 const PORT = '9090'
 
@@ -20,7 +20,7 @@ exports.initialize = async () => {
     const app = new Mali()
     app.addService(MESSAGE_PROTO_PATH, ['PublicAccessService', 'SecuredAccessService'])
     app.use({
-        'PublicAccessService': { getMessage },
+        'PublicAccessService': { getMessage, createResource },
         'SecuredAccessService': { getMessage: getSecuredMessage }
     })
     await app.start(`0.0.0.0:${PORT}`)

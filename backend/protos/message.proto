@@ -8,10 +8,31 @@ message GetMessageResponse {
     string message = 1;
 }
 
+message CreateResourceRequest {
+    enum ResourceType {
+        UNKNOWN = 0;
+        SIMPLE = 1;
+        COMPLEX = 2;
+    }
+
+    ResourceType resource = 1;
+}
+
+message CreateResourceResponse {
+    bool success = 1;
+}
+
 // Grouping all the RPC endpoints where authentication is not required
 service PublicAccessService {
     rpc GetMessage(Empty) returns (GetMessageResponse) {
         option (google.api.http).get = "/public";
+    }
+
+    rpc CreateResource (CreateResourceRequest) returns (CreateResourceResponse) {
+        option (google.api.http) = {
+            post: "/resource"
+            body: "*"
+        };
     }
 }
 
