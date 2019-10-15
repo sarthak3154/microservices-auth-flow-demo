@@ -58,6 +58,18 @@ From the base directory of the project,
 
 ## Cloud Environment (with Cloud Endpoints)
 
+### Docker Build Configuration
+
+1. Build the docker image:
+    
+       # Make sure you are in the base directory
+       $ docker build -t username/repo-name[:TAG] -f docker/server.Dockerfile .
+       
+2. Push the docker image to the Dockerhub repository.
+    
+       # Make sure you are logged in to docker with docker login command
+       $ docker push username/repo-name[:TAG]
+
 ### Cloud Endpoints Configuration Deployment
 
  1. Make sure you have separate files for gRPC APIs and gRPC APIs with HTTP/JSON Transcoding as `<file_name>.proto` and 
@@ -75,7 +87,7 @@ From the base directory of the project,
   
          $ gcloud endpoints services deploy api.pb api_config.yaml
          
-
+         
 ### GKE Service Deployment
 
 1. Prepare the `deployment` and `service` `.yaml` files as present in the `deployment` folder in the base directory.
@@ -101,4 +113,8 @@ From the base directory of the project,
         
         $ kubectl get services
         
-    3.2 Hit the Endpoints from a gRPC Client (say, BloomRPC)  
+    3.2 Hit the Endpoints from a gRPC Client (say, BloomRPC)
+    
+### References
+
+1. https://cloud.google.com/endpoints/docs/grpc/transcoding  
