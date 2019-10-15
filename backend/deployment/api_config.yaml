@@ -4,7 +4,7 @@ config_version: 3
 #
 # Name of the Service Configuration.
 #
-name: testgrpc.endpoints.nodejs-238515.cloud.goog
+name: testgrpc.endpoints.PROJECT_ID.cloud.goog
 
 title: Test gRPC API
 apis:

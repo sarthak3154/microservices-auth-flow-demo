@@ -1,5 +1,6 @@
-## Development Environment
+# Development Environment
 
+## Local Environment  
 ### Setup gRPC Gateway
 
 #### First time dependencies
@@ -54,3 +55,50 @@ From the base directory of the project,
     
     # Starts the gRPC Gateway (at port 8080)
     $ go run main.go
+
+## Cloud Environment (with Cloud Endpoints)
+
+### Cloud Endpoints Configuration Deployment
+
+ 1. Make sure you have separate files for gRPC APIs and gRPC APIs with HTTP/JSON Transcoding as `<file_name>.proto` and 
+ `http_<file_name>.proto`.
+ 2. Compile the proto file using protoc compiler.
+ 
+        $ protoc \
+          --include_imports \ 
+          --include_source_info \
+          protos/<file_name>.proto \
+          --descriptor_set_out api.pb
+          
+  3. Update the `PROJECT_ID` in the `api_config.yaml` file, or update the file to match your own requirements.
+  4. Deploy your service's configuration to Endpoints
+  
+         $ gcloud endpoints services deploy api.pb api_config.yaml
+         
+
+### GKE Service Deployment
+
+1. Prepare the `deployment` and `service` `.yaml` files as present in the `deployment` folder in the base directory.
+2. Deploy the API backend by setting up the Kubernetes cluster on GKE.
+        
+     2.1 - Create a Kubernetes cluster by visiting the GCP console. 
+     
+     2.2 - From the GCP navigation menu, follow `Kubernetes Engine` > `Clusters` > `Create Cluster`
+     to create the cluster.  
+       
+     2.3 Authenticate `kubectl` to the container cluster.
+       
+       $ gcloud container clusters get-credentials <CLUSTER_NAME> --zone <ZONE>
+
+     2.4 Deploy the API Backend to the Kubernetes cluster.
+     
+       $ kubectl apply -f /path/to/deployment-file.yml
+       $ kubectl apply -f /path/to/service-file.yml
+       
+ 3. Test the gRPC Endpoints. 
+ 
+    3.1 Get the `External IP` and `Port` by running:
+        
+        $ kubectl get services
+        
+    3.2 Hit the Endpoints from a gRPC Client (say, BloomRPC)  
