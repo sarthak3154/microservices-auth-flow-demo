@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grpc-test-server
+spec:
+  type: LoadBalancer
+  ports:
+    # Port that accepts JSON/HTTP2 requests over HTTP.
+    - port: 8080
+      targetPort: 8080
+      name: esp-http1
+    # Port that accepts gRPC
+    - port: 9000
+      targetPort: 9000
+      name: esp-grpc
+  selector:
+    deploy: grpc-test-server

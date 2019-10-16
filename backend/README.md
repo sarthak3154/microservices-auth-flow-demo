@@ -117,4 +117,5 @@ From the base directory of the project,
     
 ### References
 
-1. https://cloud.google.com/endpoints/docs/grpc/transcoding  
+1. [Cloud Endpoints - Transcoding HTTP/JSON to gRPC](https://cloud.google.com/endpoints/docs/grpc/transcoding)
+2. [Cloud Endpoints - gRPC Service Configuration](https://cloud.google.com/endpoints/docs/grpc/grpc-service-config)
