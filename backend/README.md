@@ -98,22 +98,22 @@ From the base directory of the project,
      2.2 - From the GCP navigation menu, follow `Kubernetes Engine` > `Clusters` > `Create Cluster`
      to create the cluster.  
        
-     2.3 Authenticate `kubectl` to the container cluster.
+     2.3 - Authenticate `kubectl` to the container cluster.
        
        $ gcloud container clusters get-credentials <CLUSTER_NAME> --zone <ZONE>
 
-     2.4 Deploy the API Backend to the Kubernetes cluster.
+     2.4 - Deploy the API Backend to the Kubernetes cluster.
      
        $ kubectl apply -f /path/to/deployment-file.yml
        $ kubectl apply -f /path/to/service-file.yml
        
  3. Test the gRPC Endpoints. 
  
-    3.1 Get the `External IP` and `Port` by running:
+    3.1 - Get the `External IP` and `Port` by running:
         
         $ kubectl get services
         
-    3.2 Hit the Endpoints from a gRPC Client (say, BloomRPC)
+    3.2 - Hit the Endpoints from a gRPC Client (say, BloomRPC)
     
 ### References
 
