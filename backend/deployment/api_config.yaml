@@ -4,9 +4,9 @@ config_version: 3
 #
 # Name of the Service Configuration.
 #
-name: grpc.endpoints.nodejs-238515.cloud.goog
+name: grpc.endpoints.PROJECT_ID.cloud.goog
 endpoints:
-  - name: grpc.endpoints.nodejs-238515.cloud.goog
+  - name: grpc.endpoints.PROJECT_ID.cloud.goog
     target: "<EXTERNAL_IP_ADDRESS>"
 
 title: Test gRPC API

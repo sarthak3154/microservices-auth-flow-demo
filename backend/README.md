@@ -69,25 +69,7 @@ From the base directory of the project,
     
        # Make sure you are logged in to docker with docker login command
        $ docker push username/repo-name[:TAG]
-
-### Cloud Endpoints Configuration Deployment
-
- 1. Make sure you have separate files for gRPC APIs and gRPC APIs with HTTP/JSON Transcoding as `<file_name>.proto` and 
- `http_<file_name>.proto`.
- 2. Compile the proto file using protoc compiler.
- 
-        $ protoc \
-          --include_imports \ 
-          --include_source_info \
-          protos/<file_name>.proto \
-          --descriptor_set_out api.pb
-          
-  3. Update the `PROJECT_ID` in the `api_config.yaml` file, or update the file to match your own requirements.
-  4. Deploy your service's configuration to Endpoints
-  
-         $ gcloud endpoints services deploy api.pb api_config.yaml
-         
-         
+                
 ### GKE Service Deployment
 
 1. Prepare the `deployment` and `service` `.yaml` files as present in the `deployment` folder in the base directory.
@@ -105,17 +87,52 @@ From the base directory of the project,
      2.4 - Deploy the API Backend to the Kubernetes cluster.
      
        $ kubectl apply -f /path/to/deployment-file.yml
-       $ kubectl apply -f /path/to/service-file.yml
-       
- 3. Test the gRPC Endpoints. 
+       $ kubectl apply -f /path/to/service-file.yml       
+  
+### Cloud Endpoints Configuration Deployment
+
+1. Make sure you have separate files for gRPC APIs and gRPC APIs with HTTP/JSON Transcoding as `<file_name>.proto` and 
+ `http_<file_name>.proto`.
+2. Compile the proto file using protoc compiler.
  
-    3.1 - Get the `External IP` and `Port` by running:
-        
-        $ kubectl get services
-        
-    3.2 - Hit the Endpoints from a gRPC Client (say, BloomRPC)
+       $ protoc \
+         --include_imports \ 
+         --include_source_info \
+         protos/<http_file_name>.proto \
+         --descriptor_set_out api_descriptor.pb
+          
+3. Update the `PROJECT_ID` and `EXTERNAL_IP_ADDRESS` in the `api_config.yaml` file, or update the file to match your own requirements.
+4. Deploy your service's configuration to Endpoints
+  
+       $ gcloud endpoints services deploy api_descriptor.pb api_config.yaml
+  
+### Test the Endpoints
+
+1. Testing the HTTP Endpoints
     
+   1.1 - Take note of the `External IP` and `Port` by running:
+           
+       $ kubectl get services
+           
+   1.2 - Hit the Endpoints from a REST (HTTP/1.1) Client (say, Postman) with the port matching `http_port` in `deployment` `.yml` file.
+   
+   1.3 - If the HTTP/2 port is set within the `esp` container in `deployment` `.yml` file, you can make a HTTP/2 API call directly 
+   as well from a gRPC Client (say, BloomRPC).
+   
+2. Testing with HTTPS/SSL Enabled Requests
+
+    2.1 - Make sure the SSL certificate is added and deployed to/with the ESP on Kubernetes. Follow `References(4)` for more information.
+    
+    2.2 - Curl the https request to the Cloud Endpoints. Example:
+    
+       # -k is added when using a self signed ssl certificate
+       # IP Address and Port in the curl request can be replaced with a domain name (in api_config.yaml file as endpoints.name value) 
+       
+       $ curl -k -i -H "content-type:application/json" "https://<EXTERNAL_IP_ADDRESS>:443/public"
+
 ### References
 
 1. [Cloud Endpoints - Transcoding HTTP/JSON to gRPC](https://cloud.google.com/endpoints/docs/grpc/transcoding)
 2. [Cloud Endpoints - gRPC Service Configuration](https://cloud.google.com/endpoints/docs/grpc/grpc-service-config)
+3. [Cloud Endpoints - DNS Configure](https://cloud.google.com/endpoints/docs/grpc/cloud-goog-dns-configure)
+4. [Cloud Endpoints - Enabling SSL](https://cloud.google.com/endpoints/docs/grpc/enabling-ssl)
