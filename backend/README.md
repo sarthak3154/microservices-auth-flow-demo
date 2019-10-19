@@ -93,9 +93,16 @@ From the base directory of the project,
 
 1. Make sure you have separate files for gRPC APIs and gRPC APIs with HTTP/JSON Transcoding as `<file_name>.proto` and 
  `http_<file_name>.proto`.
-2. Compile the proto file using protoc compiler.
+2. In order to compile the gRPC definition with HTTP annotations, you need a copy of the `googleapis` proto definitions.
+
+       $ GOOGLEAPIS=googleapis
+       $ git clone https://github.com/googleapis/googleapis $GOOGLEAPIS
+       
+2. Compile the proto file consisting of gRPC definition with HTTP annotations using the protoc compiler.
  
        $ protoc \
+         --proto_path=protos
+         --proto_path=$GOOGLEAPIS \
          --include_imports \ 
          --include_source_info \
          protos/<http_file_name>.proto \

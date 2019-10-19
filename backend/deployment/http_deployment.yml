@@ -27,7 +27,7 @@ spec:
             # --http2_port=9000 to accept gRPC HTTP/2 requests without https support
             "--http_port", "8080",
             "--ssl_port", "443", # listens to http/1.1 and http/2 requests with ssl certificate on the same port
-            "--service", "grpc.endpoints.nodejs-238515.cloud.goog",
+            "--service", "grpc.endpoints.PROJECT_ID.cloud.goog",
             "--rollout_strategy", "managed",
             "--backend", "grpc://127.0.0.1:9090"
           ]
